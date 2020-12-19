@@ -2,30 +2,45 @@
 <html>
 
 <head>
-    <title>Book lib</title>
+    <title>Tic-Tac-Toe</title>
     <link rel="stylesheet" href="styles.css">
 
 </head>
 <body>
-<header>
-    <h1 class="header">Welcome to Tic-Tac-Toe</h1>
-</header>
+    <div class="intro">
+        <div class="container-intro">
+            <h1>Welcome to Tic-Tac-Toe game</h1>
+            <h3>Please enter your name and start</h3>
+            <p id="warning">Cannot be an empty name</p>
+            <input type="text" id="user-name">
+            <button id="submit">START</button>
+        </div>
+    </div>
 <main>
     <div class="page">
+        <h1 class="header">Welcome to Tic-Tac-Toe</h1>
         <div class="container">
-            <div class="field">
-                <div class="field-box">O</div>
-                <div class="field-box">x</div>
-                <div class="field-box">O</div>
-                <div class="field-box">X</div>
-                <div class="field-box">O</div>
-                <div class="field-box">O</div>
-                <div class="field-box">X</div>
-                <div class="field-box">O</div>
-                <div class="field-box">O</div>
+            <div class="user-name-display">
+                <p id="user"></p>
             </div>
-
-
+            <div class="field">
+                <div class="field-box"></div>
+                <div class="field-box"></div>
+                <div class="field-box"></div>
+                <div class="field-box"></div>
+                <div class="field-box"></div>
+                <div class="field-box"></div>
+                <div class="field-box"></div>
+                <div class="field-box"></div>
+                <div class="field-box"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal">
+        <div class="container-mod">
+            <div class="msg">
+                <p class="msg-text"></p>
+            </div>
         </div>
     </div>
 

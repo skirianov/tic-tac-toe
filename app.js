@@ -1,9 +1,9 @@
 let box = document.querySelectorAll('.field-box');
 box = [...box];
-let clicked;
-let userName = 'Nastya';
+let userName;
 let mark;
-
+const submit = document.querySelector('#submit');
+let counter = 0;
 
 const gameBoard = (() => {
     const board = ['','','',
@@ -18,18 +18,12 @@ const gameBoard = (() => {
     const changeBoard = (counter, mark) => {
         board.splice(counter,1,mark);
     };
-    let counter = 0;
-    const count = () => {
-        gameBoard.counter++;
-    }
 
     
     return {
         board,
         buildBoard,
-        changeBoard,
-        counter,
-        count
+        changeBoard
     }
 })();
 
@@ -48,9 +42,9 @@ const Players = (name) => {
             box[i].addEventListener('click', () => {
                 if (!box[i].textContent){ 
                 box[i].textContent = mark;
+                (mark === 'X')? box[i].style.color ="red" : box[i].style.color = "blue";
                 let counter = box.indexOf(box[i]);
                 gameBoard.changeBoard(counter,mark);
-                gameBoard.count();
                 ifWin.checkWin();
                 move();
             } 
@@ -60,7 +54,7 @@ const Players = (name) => {
 
     return {
         name,
-        move
+        move,
     }
 };
 
@@ -75,19 +69,27 @@ const ifWin = (() => {
         [6,3,0],
         [6,4,2],
         [0,4,8],
-        [1,4,7]
+        [1,4,7],
+        [3,4,5]
     ];
 
+    let winner;
+
     const checkWin = () => {
+        counter++;
         for (let i = 0; i < winConditions.length; i++){
             if (gameBoard.board[winConditions[i][0]] === 'X' && 
             gameBoard.board[winConditions[i][1]] === 'X' && 
             gameBoard.board[winConditions[i][2]] === 'X') {
-                console.log('X wins!');
+                winner = userName + ' is a winner!';
+                callModal(winner);
             } else if (gameBoard.board[winConditions[i][0]] === 'O' &&
              gameBoard.board[winConditions[i][1]] === 'O' &&
               gameBoard.board[winConditions[i][2]] === 'O'){
-                console.log('O wins!');
+                winner = "AI is a winner!";
+                callModal(winner);
+            } else if (counter === 9 && !winner){
+                callModal("It's a Draw")
             }
         }
     };
@@ -97,6 +99,40 @@ const ifWin = (() => {
     }
 })();
 
-/*
+const callModal = (winner) => {
+    const page = document.querySelector('.page');
+    const modal = document.querySelector('.modal');
+    const msg = document.querySelector('.msg-text');
 
-*/
+    page.style.filter = "blur(4px)";
+    modal.style.display = "block";
+    msg.textContent = winner;
+}
+
+const submitUserName = () => {
+    const warning = document.querySelector('#warning');
+    userName = document.querySelector('#user-name').value;
+    
+    if (!userName){
+        warning.style.display = "block";
+        return
+    };
+
+    loadMain();
+
+    return {
+        userName
+    }
+};
+
+
+submit.addEventListener('click',submitUserName);
+
+function loadMain(){
+    const intro = document.querySelector('.intro');
+    intro.style.display = "none";
+    const page = document.querySelector('.page');
+    page.style.display = "block";
+    const user = document.querySelector('#user');
+    user.textContent = userName;
+}
